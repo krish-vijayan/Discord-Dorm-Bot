@@ -91,7 +91,7 @@ function washroomOne(auth) {
 
             cleaningPerson += `${clean.summary} is cleaning this week on ${clean.start.dateTime}!`;
           });
-          resolve(cleaningPerson);
+          resolve(cleaningPerson.substring(0, cleaningPerson.length - 16));
         } else {
           console.log(`No one is cleaning this week!`);
           resolve(`No one is cleaning this week!`);

@@ -1,6 +1,8 @@
 //Google Calendar API Import//////////////////////////////////////////////
-const { washroomOne } = require('../google_calendar_api');
 require('dotenv').config();
+
+const { washroomOne } = require('../google_calendar_api');
+
 const { google } = require('googleapis');
 
 const { OAuth2 } = google.auth;
