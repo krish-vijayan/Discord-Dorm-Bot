@@ -1,0 +1,29 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krish-vijayan/uwaterloo-dorm-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krish-vijayan/uwaterloo-dorm-bot/issues"
+  },
+  "homepage": "https://github.com/krish-vijayan/uwaterloo-dorm-bot#readme",
+  "dependencies": {
+    "@discordjs/rest": "^1.0.1",
+    "chalk": "^4.1.2",
+    "discord-api-types": "^0.37.3",
+    "discord.js": "^14.2.0",
+    "dotenv": "^16.0.1",
+    "googleapis": "^107.0.0"
+  }
+}
