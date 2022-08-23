@@ -3,7 +3,7 @@
 Discord bot created using Node.js, Discord.js, and Google's Calendar API.
 
 This discord bot was created with the intent to remind my roommates and I
-of when to clean the Washrooms and Kitchen in our dorm.
+of when to clean the washrooms and kitchen in our dorm.
 
 The main three commands so far include:
 
