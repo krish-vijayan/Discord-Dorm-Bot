@@ -1,6 +1,6 @@
 require('dotenv').config();
 //Google Calendar API Import//////////////////////////////////////////////
-const { washroomOne } = require('../google_calendar_api');
+const { washroomTwo } = require('../google_calendar_api');
 
 const { google } = require('googleapis');
 
@@ -19,11 +19,11 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('who-w1')
-    .setDescription('Replies with who is cleaning washroom #1 next'),
+    .setName('who-w2')
+    .setDescription('Replies with who is cleaning washroom #2 next'),
 
   async execute(interaction) {
-    let who = await washroomOne(oAuth2Client);
+    let who = await washroomTwo(oAuth2Client);
     await interaction.reply(who);
   },
 };

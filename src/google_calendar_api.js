@@ -13,64 +13,48 @@ oAuth2Client.setCredentials({
 });
 
 const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
-const washroomId = 'b013u55ur0f6k3mmpscc3jrvn4@group.calendar.google.com';
-
-// const eventStartTime = new Date();
-// eventStartTime.setDate(eventStartTime.getDay() + 2);
-
-// const eventEndTime = new Date();
-// eventEndTime.setDate(eventEndTime.getDate() + 2);
-// eventEndTime.setMinutes(eventEndTime.getMinutes() + 45);
-
-// const event = {
-//   summary: 'Meet with Krish',
-//   location: 'Joes house',
-//   description: 'Krish finally gets to meet Joe',
-
-//   start: {
-//     dateTime: eventStartTime,
-//     timeZone: 'America/New_York',
-//   },
-//   end: {
-//     dateTime: eventEndTime,
-//     timeZone: 'America/New_York',
-//   },
-//   colorId: 1,
-// };
-
-// calendar.freebusy.query(
-//   {
-//     resource: {
-//       timeMin: eventStartTime,
-//       timeMax: eventEndTime,
-//       timeZone: 'Canada/Ontario',
-//       items: [{ id: 'primary' }], //checking primary calender
-//     },
-//   },
-//   (err, res) => {
-//     if (err) return console.error(`Free Busy Query Error ${err}`);
-
-//     const eventsArray = res.data.calendars.primary.busy;
-
-//     if (eventsArray.length === 0)
-//       return calendar.events.insert(
-//         { calendarId: 'primary', resource: event },
-//         (err) => {
-//           if (err) return console.error(`Calendar Event Creation Error ${err}`);
-
-//           return console.log('Calendar Event Created.');
-//         }
-//       );
-
-//     return console.log(`Sorry I'm Busy`);
-//   }
-// );
+const washroomOneId = 'b013u55ur0f6k3mmpscc3jrvn4@group.calendar.google.com';
+const washroomTwoId = '4frseag0f15jie3vj8v9m2ri14@group.calendar.google.com';
+const kitchenId = '7ied85glenu48ljb3f4hl3jrio@group.calendar.google.com';
 
 function washroomOne(auth) {
   return new Promise((resolve, reject) => {
     calendar.events.list(
       {
-        calendarId: washroomId,
+        calendarId: washroomOneId,
+        timeMin: new Date().toISOString(),
+        maxResults: 1,
+        singleEvents: true,
+        orderBy: 'startTime',
+        colorId: 'Grape',
+      },
+      (err, res) => {
+        if (err) {
+          reject(`The API returned an error of ${err}`);
+          return console.log(`The API returned an error of ${err}`);
+        }
+        const clean = res.data.items;
+        if (clean.length) {
+          let cleaningPerson = ``;
+          clean.map((clean, i) => {
+            cleaningPerson += `__***${clean.summary}***__ is cleaning __***Washroom #1***__ on __***${clean.start.date}***__!`;
+            console.log(cleaningPerson);
+          });
+          resolve(cleaningPerson);
+        } else {
+          console.log(`No one is cleaning WASHROOM #1 😳`);
+          resolve(`No one is cleaning WASHROOM #1 😳`);
+        }
+      }
+    );
+  });
+}
+
+function washroomTwo(auth) {
+  return new Promise((resolve, reject) => {
+    calendar.events.list(
+      {
+        calendarId: washroomTwoId,
         timeMin: new Date().toISOString(),
         maxResults: 1,
         singleEvents: true,
@@ -85,21 +69,49 @@ function washroomOne(auth) {
         if (clean.length) {
           let cleaningPerson = ``;
           clean.map((clean, i) => {
-            console.log(
-              `${clean.summary} is cleaning this week on ${clean.start.dateTime}!`
-            );
-
-            cleaningPerson += `${clean.summary} is cleaning this week on ${clean.start.dateTime}!`;
+            cleaningPerson += `__***${clean.summary}***__ is cleaning __***Washroom #2***__ on __***${clean.start.date}***__!`;
+            console.log(cleaningPerson);
           });
-          resolve(cleaningPerson.substring(0, cleaningPerson.length - 16));
+          resolve(cleaningPerson);
         } else {
-          console.log(`No one is cleaning this week!`);
-          resolve(`No one is cleaning this week!`);
+          console.log(`No one is cleaning WASHROOM #2 😳`);
+          resolve(`No one is cleaning WASHROOM #2 😳`);
         }
       }
     );
   });
 }
 
-module.exports = { washroomOne };
+function kitchen(auth) {
+  return new Promise((resolve, reject) => {
+    calendar.events.list(
+      {
+        calendarId: kitchenId,
+        timeMin: new Date().toISOString(),
+        maxResults: 1,
+        singleEvents: true,
+        orderBy: 'startTime',
+      },
+      (err, res) => {
+        if (err) {
+          return console.log(`The API returned an error of ${err}`);
+        }
+        const clean = res.data.items;
+        if (clean.length) {
+          let cleaningPerson = ``;
+          clean.map((clean, i) => {
+            cleaningPerson += `__***${clean.summary}***__ is cleaning the __***Kitchen***__ on __***${clean.start.date}***__!`;
+            console.log(cleaningPerson);
+          });
+          resolve(cleaningPerson);
+        } else {
+          console.log(`No one is cleaning the Kitchen 😳`);
+          resolve(`No one is cleaning Kitchen 😳`);
+        }
+      }
+    );
+  });
+}
+
+module.exports = { washroomOne, washroomTwo, kitchen };
 ///Google Calendar API///////////////////////////////////////////////////////

@@ -1,13 +1,12 @@
 require('dotenv').config();
 //Google Calendar API Import//////////////////////////////////////////////
-const { washroomOne } = require('../google_calendar_api');
+const { kitchen } = require('../google_calendar_api');
 
 const { google } = require('googleapis');
 
 const { OAuth2 } = google.auth;
 const oAuth2Client = new OAuth2(
-  `${process.env.GOOGLE_CLIENT_ID}`,
-  `${process.env.GOOGLE_CLIENT_SECRET}`
+  `${process.env.GOOGLE_CLIENT_ID}, ${process.env.GOOGLE_CLIENT_SECRET}`
 );
 
 oAuth2Client.setCredentials({
@@ -19,11 +18,11 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('who-w1')
-    .setDescription('Replies with who is cleaning washroom #1 next'),
+    .setName('who-k')
+    .setDescription('Replies with who is cleaning the kitchen next'),
 
   async execute(interaction) {
-    let who = await washroomOne(oAuth2Client);
+    let who = await kitchen(oAuth2Client);
     await interaction.reply(who);
   },
 };
