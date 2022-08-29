@@ -1,6 +1,6 @@
 ///Google Calendar API///////////////////////////////////////////////////////
-require('dotenv').config();
-const { google } = require('googleapis');
+require("dotenv").config();
+const { google } = require("googleapis");
 
 const { OAuth2 } = google.auth;
 const oAuth2Client = new OAuth2(
@@ -12,10 +12,10 @@ oAuth2Client.setCredentials({
   refresh_token: `${process.env.GOOGLE_REFRESH_TOKEN}`,
 });
 
-const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
-const washroomOneId = 'b013u55ur0f6k3mmpscc3jrvn4@group.calendar.google.com';
-const washroomTwoId = '4frseag0f15jie3vj8v9m2ri14@group.calendar.google.com';
-const kitchenId = '7ied85glenu48ljb3f4hl3jrio@group.calendar.google.com';
+const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
+const washroomOneId = "b013u55ur0f6k3mmpscc3jrvn4@group.calendar.google.com";
+const washroomTwoId = "4frseag0f15jie3vj8v9m2ri14@group.calendar.google.com";
+const kitchenId = "7ied85glenu48ljb3f4hl3jrio@group.calendar.google.com";
 
 function washroomOne(auth) {
   return new Promise((resolve, reject) => {
@@ -25,8 +25,8 @@ function washroomOne(auth) {
         timeMin: new Date().toISOString(),
         maxResults: 1,
         singleEvents: true,
-        orderBy: 'startTime',
-        colorId: 'Grape',
+        orderBy: "startTime",
+        colorId: "Grape",
       },
       (err, res) => {
         if (err) {
@@ -58,7 +58,7 @@ function washroomTwo(auth) {
         timeMin: new Date().toISOString(),
         maxResults: 1,
         singleEvents: true,
-        orderBy: 'startTime',
+        orderBy: "startTime",
       },
       (err, res) => {
         if (err) {
@@ -90,7 +90,7 @@ function kitchen(auth) {
         timeMin: new Date().toISOString(),
         maxResults: 1,
         singleEvents: true,
-        orderBy: 'startTime',
+        orderBy: "startTime",
       },
       (err, res) => {
         if (err) {
